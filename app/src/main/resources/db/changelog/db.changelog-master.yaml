@@ -1,0 +1,7 @@
+databaseChangeLog:
+    - include:
+          relativeToChangelogFile: true
+          file: changesets/Contact-001.xml
+    - include:
+          relativeToChangelogFile: true
+          file: changesets/Message-001.xml

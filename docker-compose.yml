@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+    postgres:
+        image: postgres:14.2
+        env_file: ./.env
+        environment:
+            - POSTGRES_USER=$POSTGRES_USER
+            - POSTGRES_PASSWORD=$POSTGRES_ROOT_PASSWORD
+            - POSTGRES_DB=$POSTGRES_DATABASE
+        ports:
+            - $POSTGRES_LOCAL_PORT:$POSTGRES_DOCKER_PORT
+    app:
+        depends_on:
+            - postgres
+        build: ./app
+        env_file: ./.env
+        ports:
+            - $SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT
+        environment:
+            SPRING_APPLICATION_JSON: '{
+                "spring.datasource.url"  : "jdbc:postgresql://POSTGRES:$POSTGRES_DOCKER_PORT/$POSTGRES_DATABASE?createDatabaseIfNotExist=true",
+                "spring.datasource.username" : "$POSTGRES_USER",
+                "spring.datasource.password" : "$POSTGRES_ROOT_PASSWORD"
+              }'
+        volumes:
+            - .m2:/root/.m2
+        stdin_open: true
+        tty: true
