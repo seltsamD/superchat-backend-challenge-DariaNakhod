@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityNotFoundException;
+
 @RequiredArgsConstructor
 @Service
 public class ContactService {
@@ -26,6 +28,15 @@ public class ContactService {
 
     @Transactional(readOnly = true)
     public Contact getByEmail(String email) {
-        return contactRepository.getContactByEmailEquals(email);
+        return contactRepository.getContactByEmailEquals(email)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Unable to find Contact by email: '%s'", email)));
+    }
+
+    @Transactional(readOnly = true)
+    public Contact getById(Long id) {
+        return contactRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(
+                        String.format("Unable to find Contact by id: '%s'", id)));
     }
 }

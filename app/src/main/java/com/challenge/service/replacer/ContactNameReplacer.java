@@ -1,7 +1,8 @@
-package com.challenge.service;
+package com.challenge.service.replacer;
 
 import com.challenge.domain.Contact;
 import com.challenge.domain.Message;
+import com.challenge.service.ContactService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.challenge.service;
+package com.challenge.service.replacer;
 
 import com.challenge.client.CoinClient;
 import com.challenge.domain.Message;
