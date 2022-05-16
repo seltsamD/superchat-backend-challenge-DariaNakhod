@@ -4,22 +4,23 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
     <changeSet id="1" author="Test">
-        <createTable tableName="Message">
-            <column name="MessageID" type="BIGINT" autoIncrement="true">
+        <createTable tableName="message">
+            <column name="message_id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="ContactID" type="BIGINT"/>
-            <column name="Body" type="varchar(7000)"/>
+            <column name="contact_id" type="BIGINT"/>
+            <column name="body" type="VARCHAR(7000)"/>
+            <column name="date_send" type="DATETIME"/>
         </createTable>
     </changeSet>
 
     <changeSet id="2" author="Test">
         <addForeignKeyConstraint
-                baseTableName="Message"
-                baseColumnNames="ContactID"
-                constraintName="FK_Message_ContactID"
-                referencedTableName="Contact"
-                referencedColumnNames="ContactID"/>
+                baseTableName="message"
+                baseColumnNames="contact_id"
+                constraintName="FK_message_contactId"
+                referencedTableName="contact"
+                referencedColumnNames="contact_id"/>
     </changeSet>
 
 </databaseChangeLog>
